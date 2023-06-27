@@ -1,10 +1,4 @@
 test_that("correct significances", {
-  set.seed(0)
-  tab.tmp <- data.frame(matrix(NA, nrow=100, ncol=4, dimnames=list(paste0("r", 1:100), c("stat1", "p1", "stat2", "p2"))))
-  tab.tmp[, c(1, 3)] <- rnorm(n=200)
-  tab.tmp[, 2] <- 2*pnorm(-abs(tab.tmp[, 1]))
-  tab.tmp[, 4] <- 2*pnorm(-abs(tab.tmp[, 3]))
-  
   # significances
   hmr <- dmt(tab=tab.tmp)
   expect_equal(hmr["r10", grep("p$", colnames(hmr))], 0.5*max(tab.tmp["r10", c(2, 4)]))
@@ -34,4 +28,10 @@ test_that("correct significances", {
   tab2 <- tab.tmp |> as.matrix()
   rownames(tab2) <- NULL
   expect_error(tab2 |> dmt(reorder.rows = TRUE))
+})
+
+test_that("matches hitman_replication", {
+  dmtr <- dmt(tab=tab.tmp)
+  hmr <- Hitman:::hitman_replication(tab=tab.tmp)
+  expect_true(all(dmtr == hmr))
 })

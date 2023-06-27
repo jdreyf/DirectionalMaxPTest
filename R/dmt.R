@@ -1,6 +1,6 @@
 #' Directional MaxP Test
 #'
-#' Directional MaxP Test for two studies with signed statistic and p-value supplied via `tab`. This can be used to find rows where 
+#' Directional MaxP Test for two studies with signed statistics and p-values supplied via `tab`. This can be used to find rows where 
 #' there is replication in a common direction or where there is mediation.
 #'
 #' @param tab Matrix-like object with statistical and p-value columns. Only the signs of the statistics columns are used.

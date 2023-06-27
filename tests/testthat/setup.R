@@ -1,0 +1,5 @@
+set.seed(0)
+tab.tmp <- data.frame(matrix(NA, nrow=100, ncol=4, dimnames=list(paste0("r", 1:100), c("stat1", "p1", "stat2", "p2"))))
+tab.tmp[, c(1, 3)] <- rnorm(n=200)
+tab.tmp[, 2] <- 2*pnorm(-abs(tab.tmp[, 1]))
+tab.tmp[, 4] <- 2*pnorm(-abs(tab.tmp[, 3]))
