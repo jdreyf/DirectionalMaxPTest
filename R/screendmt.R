@@ -13,6 +13,7 @@
 #' }
 #' @details Larger chi-square values are more significant.
 #' @md
+#' @export
 
 screendmt <- function(tab, cols=1:4, prod.sgn=1, reorder.rows=FALSE, p.adj.rate=c("FDR", "FWER"), prefix=NULL){
   p.adj.rate <- match.arg(p.adj.rate, c("FDR", "FWER"))
