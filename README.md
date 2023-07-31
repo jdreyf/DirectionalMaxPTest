@@ -11,7 +11,7 @@ Directional MaxP test for replication, mediation, & qualitative interactions.
 Install `DirectionalMaxPTest` from GitHub using the `remotes` (or `devtools`) package within R.
 
 ```
-# install.packages("remotes") # You must install `remotes` if you haven't before
+# install.packages("remotes") # You must install remotes if you haven't before
 library(remotes)
 remotes::install_github(repo="jdreyf/DirectionalMaxPTest")
 ```
