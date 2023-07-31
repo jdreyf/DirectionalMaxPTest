@@ -1,6 +1,6 @@
 Package: DirectionalMaxPTest
 Title: Applies the directional MaxP test for replication and mediation
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: 
     person(given = "Jonathan",
            family = "Dreyfuss",
@@ -17,9 +17,6 @@ Imports:
     stats
 Suggests: 
     covr,
-    Hitman (>= 0.1.3.9000),
     testthat (>= 3.0.0),
     usethis
 Config/testthat/edition: 3
-Remotes:  
-    github::jdreyf/Hitman

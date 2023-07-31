@@ -29,7 +29,7 @@ dmt <- function(tab, cols=1:4, prod.sgn=1, reorder.rows=FALSE, fdr.method=c("BH"
   stopifnot(0 <= tab[, p.cols], tab[, p.cols] <= 1, !is.na(tab), is.logical(reorder.rows), !is.null(rownames(tab)))
   
   if (nrow(tab) > 10 & (all(tab[, stat.cols] >= 0) | all(tab[, stat.cols] <= 0))){
-    warning("All stats are the same sign, which is possible but unlikely for two-sided stats.")
+    warning("All stats are the same sign, which is possible but unlikely for more than ten two-sided stats.")
   }
   
   res <- matrix(NA, nrow=nrow(tab), ncol=3, dimnames=list(rownames(tab), c("chisq", "p", "FDR")))

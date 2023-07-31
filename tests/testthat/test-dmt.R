@@ -29,9 +29,3 @@ test_that("correct significances", {
   rownames(tab2) <- NULL
   expect_error(tab2 |> dmt(reorder.rows = TRUE))
 })
-
-test_that("matches hitman_replication", {
-  dmtr <- dmt(tab=tab.tmp)
-  hmr <- Hitman:::hitman_replication(tab=tab.tmp)
-  expect_true(all(dmtr == hmr))
-})
