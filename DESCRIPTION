@@ -1,6 +1,6 @@
 Package: DirectionalMaxPTest
-Title: Applies the directional MaxP test for replication and mediation
-Version: 0.0.0.9001
+Title: Directional MaxP test for replication, mediation, & qualitative interactions
+Version: 0.0.0.9002
 Authors@R: 
     person(given = "Jonathan",
            family = "Dreyfuss",
