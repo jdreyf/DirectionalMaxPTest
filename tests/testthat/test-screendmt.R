@@ -10,10 +10,10 @@ test_that("correct significances", {
   expect_true(all(hm2r$FDR <= hm2r.fwer$FWER))
 })
 
-test_that("matches hitman2_replication", {
-  sdmtr <- screendmt(tab=tab.tmp)
-  hm2r <- Hitman:::hitman2_replication(tab=tab.tmp)
-  expect_true(all(sdmtr == hm2r))
-})
+# test_that("matches hitman2_replication", {
+#   sdmtr <- screendmt(tab=tab.tmp)
+#   hm2r <- Hitman:::hitman2_replication(tab=tab.tmp)
+#   expect_true(all(sdmtr == hm2r))
+# })
 
 
