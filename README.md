@@ -1,4 +1,5 @@
  <!-- badges: start -->
+[![R-CMD-check](https://github.com/jdreyf/DirectionalMaxPTest/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jdreyf/DirectionalMaxPTest/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/jdreyf/DirectionalMaxPTest/branch/main/graph/badge.svg)](https://app.codecov.io/gh/jdreyf/DirectionalMaxPTest?branch=main)
 <!-- badges: end -->
 
