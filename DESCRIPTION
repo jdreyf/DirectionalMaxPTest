@@ -1,12 +1,12 @@
 Package: DirectionalMaxPTest
-Title: Directional MaxP test for replication, mediation, & qualitative interactions
-Version: 0.0.0.9003
+Title: Directional MaxP test for replication, mediation, & qualitative interactions and ScreenDMT for improving FDR and FWER when applying DMT to test multiple hypotheses
+Version: 0.0.1.9000
 Authors@R: 
     person(given = "Jonathan",
            family = "Dreyfuss",
            role = c("aut", "cre"),
 		   email = "jdreyf@bu.edu")
-Description: What the package does (one paragraph).
+Description: Directional MaxP test for replication, mediation, & qualitative interactions and ScreenDMT for improving FDR and FWER when applying DMT to test multiple hypotheses.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -16,6 +16,5 @@ Imports:
     stats
 Suggests: 
     covr,
-    testthat (>= 3.0.0),
-    usethis
+    testthat (>= 3.0.0)
 Config/testthat/edition: 3
