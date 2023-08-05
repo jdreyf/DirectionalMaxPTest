@@ -17,7 +17,8 @@
 
 screendmt <- function(tab, cols=1:4, prod.sgn=1, reorder.rows=FALSE, p.adj.rate=c("FDR", "FWER"), prefix=NULL){
   p.adj.rate <- match.arg(p.adj.rate, c("FDR", "FWER"))
-  stopifnot(nrow(tab) > 0, cols %in% c(1:ncol(tab), colnames(tab)), length(cols)==4, limma::isNumeric(tab[, cols]), prod.sgn %in% c(-1, 1))
+  stopifnot(nrow(tab) > 0, cols %in% c(1:ncol(tab), colnames(tab)), length(cols)==4, prod.sgn %in% c(-1, 1),
+            is.numeric(tab[, cols]) || (is.data.frame(tab) &  all(unlist(lapply(tab[, cols], FUN=is.numeric)))))
   stat.cols <- cols[c(1, 3)]
   p.cols <- cols[c(2, 4)]
   # don't reorder rows if don't have row names to identify the rows

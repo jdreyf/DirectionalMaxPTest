@@ -22,7 +22,9 @@
 
 dmt <- function(tab, cols=1:4, prod.sgn=1, reorder.rows=FALSE, fdr.method=c("BH", "BY"), prefix=NULL){
   fdr.method <- match.arg(fdr.method, c("BH", "BY"))
-  stopifnot(nrow(tab) > 0, cols %in% c(1:ncol(tab), colnames(tab)), length(cols)==4, limma::isNumeric(tab[, cols]), prod.sgn %in% c(-1, 1))
+  # is.data.frame(tibble) is TRUE; copy limma::isNumeric to avoid dependency
+  stopifnot(nrow(tab) > 0, cols %in% c(1:ncol(tab), colnames(tab)), length(cols)==4, prod.sgn %in% c(-1, 1),
+            is.numeric(tab[, cols]) || (is.data.frame(tab) &  all(unlist(lapply(tab[, cols], FUN=is.numeric)))))
   stat.cols <- cols[c(1, 3)]
   p.cols <- cols[c(2, 4)]
   # require rownames for consistency with hitman2_replication, which needs them st can reorder
