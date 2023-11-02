@@ -1,6 +1,6 @@
 #' Directional MaxP Test that uses screening to improve adjusted p-values
 #'
-#' Directional MaxP Test hat uses screening to improve adjusted p-values for two studies with signed statistics and p-values supplied via `tab`. 
+#' Directional MaxP Test that uses screening to improve adjusted p-values for two studies with signed statistics and p-values supplied via `tab`. 
 #' This can be used to find rows where there is replication in a common direction or where there is mediation.
 #' 
 #' @param p.adj.rate Either "FDR" for false discovery rate or "FWER" for family-wise error rate, the rate controlled by the Bonferroni procedure.

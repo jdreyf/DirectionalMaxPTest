@@ -36,7 +36,7 @@ Data frame whose rows correspond to the rows of \code{tab} with the same row nam
 }
 }
 \description{
-Directional MaxP Test hat uses screening to improve adjusted p-values for two studies with signed statistics and p-values supplied via \code{tab}.
+Directional MaxP Test that uses screening to improve adjusted p-values for two studies with signed statistics and p-values supplied via \code{tab}.
 This can be used to find rows where there is replication in a common direction or where there is mediation.
 }
 \details{
