@@ -22,7 +22,7 @@ screendmt <- function(tab, cols=1:4, prod.sgn=1, reorder.rows=FALSE, p.adj.rate=
   stat.cols <- cols[c(1, 3)]
   p.cols <- cols[c(2, 4)]
   # don't reorder rows if don't have row names to identify the rows
-  stopifnot(0 <= tab[, p.cols], tab[, p.cols] <= 1, !is.na(tab), is.logical(reorder.rows), !is.na(prefix), !is.null(rownames(tab)))
+  stopifnot(0 <= tab[, p.cols], tab[, p.cols] <= 1, !is.na(tab[, cols]), is.logical(reorder.rows), !is.na(prefix), !is.null(rownames(tab)))
   
   hm <- dmt(tab=tab, cols=cols, prod.sgn = prod.sgn, reorder.rows=FALSE, fdr.method="BH", prefix=NULL) |>
     dplyr::select(!FDR)
