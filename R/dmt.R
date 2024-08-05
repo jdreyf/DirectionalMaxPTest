@@ -28,7 +28,7 @@ dmt <- function(tab, cols=1:4, prod.sgn=1, reorder.rows=FALSE, fdr.method=c("BH"
   stat.cols <- cols[c(1, 3)]
   p.cols <- cols[c(2, 4)]
   # require rownames for consistency with hitman2_replication, which needs them st can reorder
-  stopifnot(0 <= tab[, p.cols], tab[, p.cols] <= 1, !is.na(tab), is.logical(reorder.rows), !is.null(rownames(tab)))
+  stopifnot(0 <= tab[, p.cols], tab[, p.cols] <= 1, !is.na(tab[, cols]), is.logical(reorder.rows), !is.null(rownames(tab)))
   
   if (nrow(tab) > 10 & (all(tab[, stat.cols] >= 0) | all(tab[, stat.cols] <= 0))){
     warning("All stats are the same sign, which is possible but unlikely for more than ten two-sided stats.")
