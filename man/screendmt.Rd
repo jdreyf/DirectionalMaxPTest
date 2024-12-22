@@ -10,7 +10,8 @@ screendmt(
   prod.sgn = 1,
   reorder.rows = FALSE,
   p.adj.rate = c("FDR", "FWER"),
-  prefix = NULL
+  prefix = NULL,
+  keep.input = FALSE
 )
 }
 \arguments{
@@ -26,13 +27,16 @@ screendmt(
 \item{p.adj.rate}{Either "FDR" for false discovery rate or "FWER" for family-wise error rate, the rate controlled by the Bonferroni procedure.}
 
 \item{prefix}{Character string to add to beginning of column names. \code{NULL} does not add a prefix.}
+
+\item{keep.input}{Logical, should returned data frame include \code{tab[, cols]}? If so, \code{tab} must have column names and these
+cannot include "chisq", "p", and "FDR" or "FWER" (depending on \code{p.adj.rate}).}
 }
 \value{
-Data frame whose rows correspond to the rows of \code{tab} with the same row names and whose columns are
+Data frame whose rows correspond to the rows of \code{tab} with the same row names and whose columns include
 \describe{
-\item{chisq}{Chi-square on 1 degree of freedom.}
+\item{chisq}{Chi-square on 1 degree of freedom}
 \item{p}{P-value}
-\item{FDR or FWER}{FDR or FWER}
+\item{FDR or FWER}{Adjusted p-value}
 }
 }
 \description{

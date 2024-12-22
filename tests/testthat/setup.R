@@ -3,3 +3,6 @@ tab.tmp <- data.frame(matrix(NA, nrow=100, ncol=4, dimnames=list(paste0("r", 1:1
 tab.tmp[, c(1, 3)] <- rnorm(n=200)
 tab.tmp[, 2] <- 2*pnorm(-abs(tab.tmp[, 1]))
 tab.tmp[, 4] <- 2*pnorm(-abs(tab.tmp[, 3]))
+
+mtrx.tmp <- matrix(NA, nrow=100, ncol=4)
+mtrx.tmp[] <- as.matrix(tab.tmp)

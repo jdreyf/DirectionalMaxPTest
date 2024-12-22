@@ -10,7 +10,8 @@ dmt(
   prod.sgn = 1,
   reorder.rows = FALSE,
   fdr.method = c("BH", "BY"),
-  prefix = NULL
+  prefix = NULL,
+  keep.input = FALSE
 )
 }
 \arguments{
@@ -27,13 +28,16 @@ dmt(
 See stats::p.adjust.}
 
 \item{prefix}{Character string to add to beginning of column names. \code{NULL} does not add a prefix.}
+
+\item{keep.input}{Logical, should returned data frame include \code{tab[, cols]}? If so, \code{tab} must have column names and these
+cannot include "chisq", "p", or "FDR".}
 }
 \value{
-Data frame whose rows correspond to the rows of \code{tab} with the same row names and whose columns are
+Data frame whose rows correspond to the rows of \code{tab} with the same row names and whose columns include
 \describe{
 \item{chisq}{Chi-square on 1 degreee of freedom.}
 \item{p}{P-value}
-\item{FDR}{FDR}
+\item{FDR}{Adjusted p-value}
 }
 }
 \description{
