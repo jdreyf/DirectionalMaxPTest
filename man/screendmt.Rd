@@ -44,5 +44,5 @@ Directional MaxP Test that uses screening to improve adjusted p-values for two s
 This can be used to find rows where there is replication in a common direction or where there is mediation.
 }
 \details{
-Larger chi-square values are more significant.
+Larger chi-square values are more significant. \code{tab} must have more than one row.
 }

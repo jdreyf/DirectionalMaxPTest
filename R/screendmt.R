@@ -13,7 +13,7 @@
 #' \item{p}{P-value}
 #' \item{FDR or FWER}{Adjusted p-value}
 #' }
-#' @details Larger chi-square values are more significant.
+#' @details Larger chi-square values are more significant. `tab` must have more than one row.
 #' @md
 #' @export
 

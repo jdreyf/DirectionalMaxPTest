@@ -38,7 +38,7 @@ dmt <- function(tab, cols=1:4, prod.sgn=1, reorder.rows=FALSE, fdr.method=c("BH"
   }
   
   res <- matrix(NA, nrow=nrow(tab), ncol=3, dimnames=list(rownames(tab), c("chisq", "p", "FDR")))
-  # weirdly, if tab has one row, then dim(tab[, 1:ncol(tab)])=NULL, so need drop=FALSE
+  # if tab has one row, then dim(tab[, 1:ncol(tab)])=dim(tab[1, 1:ncol(tab)])=NULL, so need drop=FALSE
   sgn <- apply(tab[, stat.cols, drop=FALSE], MARGIN=1, FUN=function(vv) sign(prod(vv)))
   # order columns per row
   p.tab.o <- t(apply(data.matrix(tab[, p.cols, drop=FALSE]), MARGIN = 1, FUN=sort, na.last=TRUE))
