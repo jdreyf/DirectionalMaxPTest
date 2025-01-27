@@ -1,6 +1,6 @@
 Package: DirectionalMaxPTest
 Title: Directional MaxP test for replication, mediation, & qualitative interactions and ScreenDMT for improving FDR and FWER when applying DMT to test multiple hypotheses
-Version: 0.0.2.9000
+Version: 0.0.2.9001
 Authors@R: 
     person(given = "Jonathan",
            family = "Dreyfuss",

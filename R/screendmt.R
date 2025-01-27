@@ -36,10 +36,13 @@ screendmt <- function(tab, cols=1:4, prod.sgn=1, reorder.rows=FALSE, p.adj.rate=
   M <- nrow(tab)
   
   tab2 <- data.frame(tab[, p.cols, drop=FALSE], hm) |>
-    dplyr::mutate(minp = apply(as.matrix(tab[, p.cols, drop=FALSE]), MARGIN=1, FUN=min), max2 = pmax(p, minp)) |>
+    dplyr::mutate(minp = apply(as.matrix(tab[, p.cols, drop=FALSE]), MARGIN=1, FUN=min), 
+                  max2 = pmax(p, minp)) |>
     dplyr::arrange(max2) |>
-    dplyr::mutate(rnk = 1:M)
-  tab2$adj.num <- apply(as.matrix(tab2$max2), 1, FUN=function(xx) sum(tab2$minp <= xx))
+    dplyr::mutate(rnk = 1:M,
+                  adj.num = findInterval(max2, sort(minp, na.last = TRUE), rightmost.closed = FALSE))
+  # I tested that rightmost.closed=FALSE is consistent with previous implementation but rightmost.closed=TRUE is NOT
+  # tab2$adj.num2 <- apply(as.matrix(tab2$max2), 1, FUN=function(xx) sum(tab2$minp <= xx))
   
   if (p.adj.rate == "FDR"){
     tab2 <- tab2 |> dplyr::mutate(bh.point = adj.num*max2/rnk, FDR = cummin(bh.point[M:1])[M:1]) |>
