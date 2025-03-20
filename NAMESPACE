@@ -2,4 +2,5 @@
 
 export(check_tab)
 export(dmt)
+export(mediate_glm)
 export(screendmt)

@@ -6,7 +6,7 @@
 #' that \code{E} changes \code{Y} significantly and in the same direction here.
 #'
 #' @param E A numeric vector of exposures.
-#' @param M A numeric matrix-like data object with one row per feature and one column per sample of mediators.
+#' @param M A numeric matrix with one row per feature and one column per sample of mediators.
 #' Must have more than one feature and have row names and column names.
 #' @param Y A numeric vector of \code{length(E)} of outcomes. Only continuous, normally distributed outcomes
 #' currently supported.
@@ -39,7 +39,7 @@ mediate_glm <- function(E, M, Y, covariates=NULL, fam="gaussian", reorder.rows=T
   check_tab(M, num.cols = 1:ncol(M))
   stopifnot(is.numeric(E), is.numeric(Y), !is.na(E), !is.na(Y), is.null(dim(E)), is.null(dim(Y)), stats::var(E) > 0,
             nrow(M) > 1, length(E)==ncol(M), length(Y)==ncol(M), !is.null(rownames(M)), !is.null(colnames(M)),
-            length(unique(Y)) >= 3 || fam == "binomial", limma::isNumeric(M))
+            length(unique(Y)) >= 3 || fam == "binomial")
   if (check.names) stopifnot(names(E)==colnames(M), colnames(M)==names(Y))
   
   # ok if covariates is NULL
@@ -60,18 +60,17 @@ mediate_glm <- function(E, M, Y, covariates=NULL, fam="gaussian", reorder.rows=T
   }
   ey.sign <- sign(tt.ey["EY.t"])
   
-  # change order of columns so it's consistent with c("MY.p", "MY.slope")
-  # include intercept in the design matrix
   tt <- matrix(NA, nrow=nrow(M), ncol=4, dimnames=list(rownames(M), c("EM.t", "EM.p", "MY.t", "MY.p")))
   for (rr in 1:nrow(M)){
     m.v <- M[rr,]
-    fm.em <- lm(m.v ~ ., data = data.frame(my.covar))
+    fm.em <- stats::lm(m.v ~ ., data = data.frame(my.covar))
     tt[rr, c("EM.t", "EM.p")] <- summary(fm.em)$coefficients["E", c("t value", "Pr(>|t|)")]
-    fm.my <- lm(Y ~ m.v + ., data = data.frame(my.covar))
+    fm.my <- stats::lm(Y ~ m.v + ., data = data.frame(my.covar))
     tt[rr, c("MY.t", "MY.p")] <- summary(fm.my)$coefficients["m.v", c("t value", "Pr(>|t|)")]
   }
   
-  ret <- cbind(EMY.chisq, EMY.p, EMY.FDR, ret)
+  ret <- screendmt(tab=tt, prod.sgn = ey.sign, reorder.rows = FALSE, p.adj.rate = p.adj.rate, keep.input = TRUE, prefix = "EMY")
+
   if (reorder.rows) ret <- ret[order(ret$EMY.p),]
   return(ret)
 }
