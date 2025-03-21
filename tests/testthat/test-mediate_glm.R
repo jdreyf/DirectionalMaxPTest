@@ -49,14 +49,16 @@ test_that("mediate_glm handles weak EY association warning", {
   expect_message(mediate_glm(E = E, M = M, Y = Y))
 })
 
+test_that("mediate_glm handles NAs in Y", {
+  Y2 <- Y
+  Y2[1] <- NA
+  expect_no_error(mediate_glm(E = E, M = M, Y = Y2))
+})
+
 test_that("mediate_glm handles invalid input", {
   E2 <- E
   E2[1] <- NA
   expect_error(mediate_glm(E = E2, M = M, Y = Y))
-  
-  Y2 <- Y
-  Y2[1] <- NA
-  expect_error(mediate_glm(E = E, M = M, Y = Y2))
   
   expect_error(mediate_glm(E = E, M = matrix(NA, nrow=0, ncol=100), Y = Y))
   

@@ -28,7 +28,7 @@
 #' \item{MY.z}{z-score for M-->Y, not accounting for direction}
 #' \item{MY.p}{p-value for M-->Y, not accounting for direction}
 #' }
-#' @details \code{E} and \code{Y} cannot have \code{NA}s. \code{M} may have some \code{NA}s.
+#' @details \code{E}\ cannot have \code{NA}s, but \code{M} and \code{Y} may have some \code{NA}s.
 #'
 #' Larger chi-square values are more significant.
 #' @export
@@ -37,7 +37,7 @@ mediate_glm <- function(E, M, Y, covariates=NULL, fam="gaussian", reorder.rows=T
                    verbose=TRUE, check.names=TRUE){
   p.adj.rate <- match.arg(p.adj.rate, c("FDR", "FWER"))
   check_tab(M, num.cols = 1:ncol(M))
-  stopifnot(is.numeric(E), is.numeric(Y), !is.na(E), !is.na(Y), is.null(dim(E)), is.null(dim(Y)), stats::var(E) > 0,
+  stopifnot(is.numeric(E), is.numeric(Y), !is.na(E), is.null(dim(E)), is.null(dim(Y)), stats::var(E) > 0,
             nrow(M) > 1, length(E)==ncol(M), length(Y)==ncol(M), !is.null(rownames(M)), !is.null(colnames(M)),
             length(unique(Y)) >= 3 || fam == "binomial")
   if (check.names) stopifnot(names(E)==colnames(M), colnames(M)==names(Y))
@@ -71,6 +71,6 @@ mediate_glm <- function(E, M, Y, covariates=NULL, fam="gaussian", reorder.rows=T
   
   ret <- screendmt(tab=tt, prod.sgn = ey.sign, reorder.rows = FALSE, p.adj.rate = p.adj.rate, keep.input = TRUE, prefix = "EMY")
 
-  if (reorder.rows) ret <- ret[order(ret$EMY.p),]
+  if (reorder.rows) ret <- ret[order(ret$EMY.FDR, ret$EMY.p),]
   return(ret)
 }
