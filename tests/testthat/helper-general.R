@@ -17,3 +17,8 @@ M <- rbind(M1,M2)
 Y <- beta_my * M1 + beta_xy * E + rnorm(n, sd = error_sd)
 names(E) <- names(Y) <- colnames(M) <- paste0("S", 1:ncol(M))
 rownames(M) <- paste0("G", 1:nrow(M))
+
+set.seed(0)
+cvrts.df <- data.frame(x1 = rnorm(n=n), lvl=c("low", "med", "high")[sample(1:3, size=n, replace = TRUE)])
+cvrts.mod <- model.matrix(~., data = cvrts.df)[, -1]
+

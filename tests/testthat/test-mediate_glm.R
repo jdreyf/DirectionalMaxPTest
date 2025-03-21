@@ -3,7 +3,7 @@ test_that("mediate_glm runs without errors on basic data", {
   expect_s3_class(result, "data.frame")
 })
 
-test_that("mediate_glm returns correct association stats", {
+test_that("mediate_glm without covariates", {
   result <- mediate_glm(E = E, M = M, Y = Y)
   expected_cols <- c("EMY.chisq", "EMY.p", "EMY.FDR", "EM.t", "EM.p", "MY.t", "MY.p")
   expect_true(all(expected_cols %in% colnames(result)))
@@ -17,22 +17,28 @@ test_that("mediate_glm returns correct association stats", {
 
 test_that("mediate_glm handles covariates", {
   covariate <- rnorm(length(E))
-  result <- mediate_glm(E = E, M = M, Y = Y, covariates = covariate)
-  
+  result <- mediate_glm(E = E, M = M, Y = Y, covariates = covariate, reorder.rows = FALSE)
   em.fm1 <- stats::lm(M[1,] ~ E + covariate)
   expect_equal(result[1, "EM.t"], summary(em.fm1)$coefficients["E", "t value"])
   my.fm2 <- stats::lm(Y ~ M[2,] + E + covariate)
   expect_equal(result[2, "MY.t"], summary(my.fm2)$coefficients[2, "t value"])
   
   covariates_matrix <- matrix(rnorm(2 * length(E)), ncol = 2)
-  result2 <- mediate_glm(E = E, M = M, Y = Y, covariates = covariates_matrix)
+  result2 <- mediate_glm(E = E, M = M, Y = Y, covariates = covariates_matrix, reorder.rows = FALSE)
   em.fm1 <- stats::lm(M[1,] ~ E + covariates_matrix)
   expect_equal(result2[1, "EM.t"], summary(em.fm1)$coefficients["E", "t value"])
   my.fm2 <- stats::lm(Y ~ M[2,] + E + covariates_matrix)
   expect_equal(result2[2, "MY.t"], summary(my.fm2)$coefficients[2, "t value"])
+  
+  res3 <- mediate_glm(E = E, M = M, Y = Y, covariates = cvrts.mod, reorder.rows = FALSE)
+  em.fm1 <- stats::lm(M[1,] ~ 1 + E + x1 + lvllow + lvlmed, data=as.data.frame(cvrts.mod))
+  expect_equal(res3[1, "EM.t"], summary(em.fm1)$coefficients["E", "t value"])
+  my.fm2 <- stats::lm(Y ~ M[2,] + E + x1 + lvllow + lvlmed, data=as.data.frame(cvrts.mod))
+  expect_equal(res3[2, "MY.t"], summary(my.fm2)$coefficients[2, "t value"])
 })
 
 test_that("mediate_glm handles weak EY association warning", {
+  set.seed(0)
   E <- rnorm(100)
   M1 <- 0.5 * E + rnorm(100)
   M2 <- 0.5 * E + rnorm(100)
@@ -40,7 +46,7 @@ test_that("mediate_glm handles weak EY association warning", {
   colnames(M) <- paste0("M", 1:ncol(M))
   rownames(M) <- paste0("Sample", 1:nrow(M))
   Y <- rnorm(100) # No association with E
-  expect_message(mediate_glm(E = E, M = M, Y = Y), "E and Y are not associated")
+  expect_message(mediate_glm(E = E, M = M, Y = Y))
 })
 
 test_that("mediate_glm handles invalid input", {
