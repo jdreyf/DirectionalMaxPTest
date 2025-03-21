@@ -36,7 +36,7 @@
 mediate_glm <- function(E, M, Y, covariates=NULL, fam="gaussian", reorder.rows=TRUE, p.adj.rate=c("FDR", "FWER"),
                    verbose=TRUE, check.names=TRUE){
   p.adj.rate <- match.arg(p.adj.rate, c("FDR", "FWER"))
-  check_tab(M, num.cols = 1:ncol(M))
+  check_tab(M, num.cols = ncol(M))
   stopifnot(is.numeric(E), is.numeric(Y), !is.na(E), !is.na(Y), is.null(dim(E)), is.null(dim(Y)), stats::var(E) > 0,
             nrow(M) > 1, length(E)==ncol(M), length(Y)==ncol(M), !is.null(rownames(M)), !is.null(colnames(M)),
             length(unique(Y)) >= 3 || fam == "binomial")
